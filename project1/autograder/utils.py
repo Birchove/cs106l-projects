@@ -344,7 +344,7 @@ def get_declarations(*files: os.PathLike):
         )
         if result.returncode != 0:
             raise RuntimeError(
-                "Couldn't find the path to g++. Did you follow the setup instructions?\n\nhttps://github.com/cs106l/cs106l-assignments"
+                "Couldn't find the path to g++. Did you follow the setup instructions?\n\nhttps://github.com/cs106l/cs106l-projects/blob/main/project-setup/README.md"
             )
         compiler_path = result.stdout.strip()
         compiler_path = f'"(" "{compiler_path}" -std=c++11 ")"'

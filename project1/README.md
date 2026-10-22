@@ -20,11 +20,11 @@ All of your code will go into `spellcheck.cpp`. Once you are done, you will have
 > [!IMPORTANT]  
 > This assignment handout may look long, but there is actually not a lot of code that you need to write for this assignment! We have included a lot of extra details to make implementing this assignment (hopefully) more straightforward. Please let us know if anything confuses you (feel free to reach out on Ed/lecture/OH)!
 
-To download the starter code for this assignment, please see the instructions for [**Getting Started**](https://github.com/cs106l/cs106l-assignments#readme) on the course assignments repository.
+To download the starter code for this project, please see the instructions for [**Getting Started**](https://github.com/cs106l/cs106l-projects#readme) on the course projects repository.
 
 ## Running your code
 
-Go find and follow the setup instructions in [Assignment Setup](https://github.com/cs106l/cs106l-assignments/blob/main/assignment-setup/README.md) to get your C++ compiler and autograder set up for this assignment.
+Go find and follow the setup instructions in [Project Setup](https://github.com/cs106l/cs106l-projects/blob/main/project-setup/README.md) to get your C++ compiler and autograder set up for this project.
 
 To run your code, first you'll need to compile it. Open up a terminal (if you are using VSCode, hit <kbd>Ctrl+\`</kbd> or go to **Terminal > New Terminal** at the top). Then make sure that you are in the `project1/` directory and run:
 
