@@ -20,11 +20,11 @@ All of your code will go into `spellcheck.cpp`. Once you are done, you will have
 > [!IMPORTANT]  
 > This assignment handout may look long, but there is actually not a lot of code that you need to write for this assignment! We have included a lot of extra details to make implementing this assignment (hopefully) more straightforward. Please let us know if anything confuses you (feel free to reach out on Ed/lecture/OH)!
 
-To download the starter code for this assignment, please see the instructions for [**Getting Started**](../README.md#getting-started) on the course assignments repository.
+To download the starter code for this assignment, please see the instructions for [**Getting Started**](https://github.com/cs106l/cs106l-assignments#readme) on the course assignments repository.
 
 ## Running your code
 
-Go find and follow the setup instructions in [Assignment Setup](../assignment-setup/README.md) to get your C++ compiler and autograder set up for this assignment.
+Go find and follow the setup instructions in [Assignment Setup](https://github.com/cs106l/cs106l-assignments/blob/main/assignment-setup/README.md) to get your C++ compiler and autograder set up for this assignment.
 
 To run your code, first you'll need to compile it. Open up a terminal (if you are using VSCode, hit <kbd>Ctrl+\`</kbd> or go to **Terminal > New Terminal** at the top). Then make sure that you are in the `project1/` directory and run:
 
@@ -104,7 +104,7 @@ Here's a step-by-step guide you can follow to accomplish this:
 
     We can get a vector of all the iterators to whitespace characters by calling `find_all` on our `source` string and passing in a unary predicate that checks if a character is whitespace. Thankfully, such a function comes built-in with C++: it is called `isspace`.
 
-    > 📄 [**`std::isspace`**](https://en.cppreference.com/w/c/string/byte)  
+    > 📄 [**`std::isspace`**](https://en.cppreference.com/w/cpp/string/byte/isspace)  
     > 
     > Note: when passing this function as a predicate, you must pass it as `std::isspace`[^1].
     >
@@ -137,7 +137,7 @@ Here's a step-by-step guide you can follow to accomplish this:
 
     The arrows represent the iterators returned by `find_all`, and as you can see, the tokens are the characters between any two arrows. Don't worry about whether or not the iterator actually does point to whitespace (you don't need to worry about "trimming" the tokens)—`Token` has a constructor that takes in a pair of iterators and automatically handles trimming whitespace around the edges.
 
-    > 📄 [**`Token`**](./spellcheck.cpp)
+    > 📄 [**`Token`**](./spellcheck.h)
     > ```cpp
     > template <typename It>
     > Token(std::string& source, It begin, It end);
@@ -197,7 +197,7 @@ Once you've finished this step, your spellcheck should start reporting token cou
 to spellcheck the string `"hello wrld"`. It should report:
 
 ```
-Loading dictionary... loaded 464811 words.
+Loading dictionary... loaded 464811 unique words.
 Tokenizing input... got 2 tokens.
 ```
 
@@ -282,7 +282,7 @@ Here's a step-by-step guide to implement this algorithm:
     
     What should we put for `/* A lambda function taking a Token -> Misspelling */`? We should replace it with a lambda function that takes in a `Token` object and produces a `Misspelling` object that contains all of the suggested alternate spellings for `token`. To identify suggestions, we will search through `dictionary` for all the words whose Damerau-Levenshtein distance to `token.content` is exactly `1`. To find the Damerau-Levenshtein distance, you can use the provided `levenshtein` function.
 
-    > 📄 [**`levenshtein`**](./spellcheck.h)  
+    > 📄 [**`levenshtein`**](./utils.cpp)  
     > ```cpp
     > size_t levenshtein(const std::string& a, const std::string& b);
     > ```
@@ -291,7 +291,7 @@ Here's a step-by-step guide to implement this algorithm:
 
     Note that going through `dictionary` and finding suggestions should happen for *each* misspelled word. **That means that you will need to nest another `std::ranges::views::filter` call inside the `/* A lambda function taking a Token -> Misspelling */`.** To construct the `std::set` of suggestions, you will need to materialize the nested view of suggested words into a set, triggering the lazy evaluation, using [overload (4) of the `std::set` constructor](https://en.cppreference.com/w/cpp/container/set/set).
 
-    > 📄 [**`std::set`**](https://en.cppreference.com/w/cpp/ranges/transform_view)  
+    > 📄 [**`std::set`**](https://en.cppreference.com/w/cpp/container/set/set)  
     > ```cpp
     > template <class InputIt>
     > set(InputIt first, InputIt last, const Compare& comp = Compare(), const Allocator& alloc = Allocator());
