@@ -46,12 +46,16 @@ int main() {
             // TODO 1: Give the square an outline that is a few pixels thick
             // and a different color than its fill.
             //   Done when: every square has a clearly visible outline.
+            square.setOutlineColor(sf::Color(150, 255, 32));
 
             // TODO 2: Rotate the square by an angle that depends on `col`, so
             // that squares further to the right are rotated more. (For
             // example, column 0 is not rotated and each column after that is
             // rotated a few more degrees than the last.)
             //   Done when: the squares visibly tilt more from left to right.
+            sf::Angle ang = sf::degrees(col * 18.0f);
+            
+            square.rotate(ang);
 
             squares.push_back(square);
         }

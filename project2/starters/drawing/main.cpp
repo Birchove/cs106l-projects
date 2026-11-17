@@ -42,6 +42,13 @@ int main() {
                     circle.setOrigin({radius, radius});
                     circle.setPosition(where);
                     circles.push_back(circle);
+                } else if (click -> button == sf::Mouse::Button::Right) {
+                    sf::RectangleShape square;
+                    sf::Vector2f rect {radius, radius};
+                    square.setSize(rect);
+                    square.setFillColor(sf::Color(100, 199, 30));
+                    square.setPosition(where);
+                    squares.push_back(square);
                 }
 
                 // TODO 1: If the RIGHT mouse button was pressed, create a
@@ -57,6 +64,10 @@ int main() {
                 // been drawn.
                 //   Done when: pressing C leaves the window blank, and you can
                 //   start drawing again afterward.
+                if (key -> scancode == sf::Keyboard::Scancode::C) {
+                    squares.clear();
+                    circles.clear();
+                }
             }
         }
 

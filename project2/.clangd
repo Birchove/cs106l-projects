@@ -1,0 +1,13 @@
+CompileFlags:
+  Add:
+    - -std=c++20
+    - -I/opt/homebrew/include
+  Remove:
+    - -std=*
+
+Diagnostics:
+  ClangTidy:
+    Remove:
+      - "*"
+  MissingIncludes: None
+  UnusedIncludes: None

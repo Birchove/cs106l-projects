@@ -39,6 +39,16 @@ project-setup/m
 *.app
 main
 
+# Project 2: SFML hello-world binary
+hello_sfml
+
+# macOS debug symbols
+*.dSYM
+
+# Tooling / generated
+compile_commands.json
+.cache/
+
 # Python
 __pycache__/
 *.whl

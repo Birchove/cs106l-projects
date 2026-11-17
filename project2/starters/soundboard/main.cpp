@@ -21,6 +21,7 @@
 #include <SFML/Graphics.hpp>
 #include <cmath>
 #include <cstdint>
+#include <numbers>
 #include <vector>
 
 /*
@@ -35,7 +36,7 @@ sf::SoundBuffer makeTone(float frequency) {
     const unsigned int sampleRate = 44100;  // samples per second
     const float duration = 0.5f;            // seconds
     const auto sampleCount = static_cast<std::size_t>(sampleRate * duration);
-    const float pi = 3.14159265f;
+    const float pi = std::numbers::pi_v<float>;
 
     std::vector<std::int16_t> samples(sampleCount);
     for (std::size_t i = 0; i < sampleCount; i++) {
@@ -58,16 +59,19 @@ sf::RectangleShape makePad(float x, sf::Color color) {
 int main() {
     sf::RenderWindow window(sf::VideoMode({800, 500}), "Soundboard");
     window.setFramerateLimit(60);
+    float volume = 100.0f;
 
     // A sf::SoundBuffer holds audio data. A sf::Sound plays a buffer.
     // (The buffer must stay alive as long as the sound that uses it.)
     sf::SoundBuffer bufferC = makeTone(261.63f);  // the note C
     sf::SoundBuffer bufferE = makeTone(329.63f);  // the note E
     sf::SoundBuffer bufferG = makeTone(392.00f);  // the note G
+    sf::SoundBuffer bufferA = makeTone(440.00f);
 
     sf::Sound soundC(bufferC);
     sf::Sound soundE(bufferE);
     sf::Sound soundG(bufferG);
+    sf::Sound soundA(bufferA);
 
     // One pad per note, so you can see which note is playing.
     sf::RectangleShape padC = makePad(25.f, sf::Color(230, 80, 80));
@@ -77,6 +81,7 @@ int main() {
     // TODO 1 (part a): Create a fourth note. Make a new buffer with
     // makeTone (try 440.0 Hz, the note A) and a new sf::Sound that plays it.
     // A fourth pad at x = 625 is optional but nice.
+    sf::RectangleShape padA = makePad(625.f, sf::Color(140, 200, 80));
 
     while (window.isOpen()) {
         while (const std::optional event = window.pollEvent()) {
@@ -89,6 +94,8 @@ int main() {
                     soundE.play();
                 } else if (key->scancode == sf::Keyboard::Scancode::D) {
                     soundG.play();
+                } else if (key -> scancode == sf::Keyboard::Scancode::F) {
+                    soundA.play();
                 }
 
                 // TODO 1 (part b): Play your new note when F is pressed.
@@ -100,6 +107,16 @@ int main() {
                 // turn it down first to hear it go up.)
                 //   Done when: after pressing Down a few times, the notes are
                 //   noticeably quieter, and pressing Up makes them louder again.
+
+                if (key -> scancode == sf::Keyboard::Scancode::Up) {
+                    volume = std::fmin(volume + 10.0f, 100.0f);
+                } else if (key -> scancode == sf::Keyboard::Scancode::Down) {
+                    volume = std::fmax(volume - 10.0f, 0.0f);
+                }
+                soundC.setVolume(volume);
+                soundE.setVolume(volume);
+                soundG.setVolume(volume);
+                soundA.setVolume(volume);
             }
         }
 
@@ -116,6 +133,7 @@ int main() {
         drawPad(padC, soundC);
         drawPad(padE, soundE);
         drawPad(padG, soundG);
+        drawPad(padA, soundA);
         window.display();
     }
 

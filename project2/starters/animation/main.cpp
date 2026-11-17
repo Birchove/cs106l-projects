@@ -30,7 +30,7 @@ int main() {
 
     // The ball's velocity in pixels per second. Right now it only moves
     // horizontally (the y part is 0).
-    sf::Vector2f velocity(250.f, 0.f);
+    sf::Vector2f velocity(250.f, 200.f);
 
     // A square sitting in the middle of the window, centered on its origin.
     sf::RectangleShape square({80.f, 80.f});
@@ -62,17 +62,25 @@ int main() {
         if (pos.x + radius > width && velocity.x > 0.f) {
             velocity.x = -velocity.x;
         }
-
+        if (pos.y - radius < 0.f && velocity.y < 0.f) {
+            velocity.y = - velocity.y;
+        }
+        if (pos.y + radius > height && velocity.y > 0.f) {
+            velocity.y = -velocity.y;
+        }
         // TODO 1: Give the ball a nonzero vertical velocity, and make it
         // bounce off the top and bottom walls the same way it bounces off
         // the left and right walls.
         //   Done when: the ball moves diagonally and stays inside the window,
         //   bouncing off all four walls.
 
+
         // TODO 2: Make `square` rotate a little bit every frame so that it
         // spins continuously. Use `dt` so the spin speed doesn't depend on
         // your frame rate.
         //   Done when: the square in the middle spins smoothly and never stops.
+        sf::Angle ang = sf::degrees(10.0f * dt);
+        square.rotate(ang);
 
         window.clear(sf::Color(20, 20, 30));
         window.draw(square);

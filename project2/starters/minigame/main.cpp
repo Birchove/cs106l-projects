@@ -12,6 +12,7 @@
  */
 
 #include <SFML/Graphics.hpp>
+#include <cstddef>
 
 int main() {
     sf::RenderWindow window(sf::VideoMode({800, 600}), "Mini Game");
@@ -41,10 +42,14 @@ int main() {
                 if (key->scancode == sf::Keyboard::Scancode::Escape) {
                     window.close();
                 }
-
+                
                 // TODO 2: When the Space key is pressed, change the player's
                 // fill color to a different color.
                 //   Done when: pressing Space visibly changes the circle's color.
+                else if (key -> scancode == sf::Keyboard::Scancode::Space ) {
+                    player.setFillColor(sf::Color::Blue);
+                }   
+
             }
         }
 
@@ -66,6 +71,12 @@ int main() {
         // down while the Down arrow key is held. (Hint: in SFML, the y axis
         // points DOWN, so moving up means a negative y.)
         //   Done when: holding Up/Down smoothly moves the circle up/down.
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Down)) {
+            player.move({0.f, speed * dt});
+        }
+        if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::Up)) {
+            player.move({0.f, -speed * dt});
+        }
 
         // ---- 3. Draw ----------------------------------------------------
         window.clear(sf::Color(30, 30, 40));  // dark blue-gray background
